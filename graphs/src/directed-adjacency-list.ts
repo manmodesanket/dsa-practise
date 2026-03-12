@@ -1,11 +1,3 @@
-/**
- * Adjacency List representation for Directed Graphs
- * Supports both weighted and unweighted graphs
- *
- * Each node maps to an array of { node, weight } neighbors.
- * addEdge(A, B) only adds B to A's list (one-way).
- */
-
 interface Neighbor {
   node: string;
   weight: number;
@@ -21,12 +13,10 @@ class DirectedAdjacencyList {
     }
   }
 
-  // Add a directed edge from -> to (adds only to from's list)
   addEdge(from: string, to: string, weight: number = 1): void {
     this.adjacencyList.get(from)!.push({ node: to, weight });
   }
 
-  // Remove a directed edge from -> to
   removeEdge(from: string, to: string): void {
     const list = this.adjacencyList.get(from)!;
     this.adjacencyList.set(
@@ -35,17 +25,14 @@ class DirectedAdjacencyList {
     );
   }
 
-  // Check if a directed edge exists from -> to
   hasEdge(from: string, to: string): boolean {
     return this.adjacencyList.get(from)!.some((n) => n.node === to);
   }
 
-  // Get all outgoing neighbors of a node
   getOutNeighbors(node: string): Neighbor[] {
     return this.adjacencyList.get(node)!;
   }
 
-  // Get all incoming neighbors of a node
   getInNeighbors(node: string): Neighbor[] {
     const incoming: Neighbor[] = [];
     for (const [source, neighbors] of this.adjacencyList) {
@@ -58,12 +45,10 @@ class DirectedAdjacencyList {
     return incoming;
   }
 
-  // Out-degree: number of edges going OUT from this node
   getOutDegree(node: string): number {
     return this.adjacencyList.get(node)!.length;
   }
 
-  // In-degree: number of edges coming IN to this node
   getInDegree(node: string): number {
     let count = 0;
     for (const [, neighbors] of this.adjacencyList) {
@@ -74,7 +59,6 @@ class DirectedAdjacencyList {
     return count;
   }
 
-  // Print the adjacency list
   display(): void {
     for (const [node, neighbors] of this.adjacencyList) {
       const edges = neighbors

@@ -1,10 +1,3 @@
-/**
- * Adjacency List representation for Undirected Graphs
- * Supports both weighted and unweighted graphs
- *
- * Each node maps to an array of { node, weight } neighbors.
- * addEdge(A, B) adds to both A's and B's lists (symmetric).
- */
 interface Neighbor {
   node: string;
   weight: number;

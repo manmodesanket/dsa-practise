@@ -1,8 +1,3 @@
-/**
- * Adjacency Matrix representation for Undirected Graphs
- * Supports both weighted and unweighted graphs
- */
-
 interface Neighbor {
   node: string;
   weight: number;

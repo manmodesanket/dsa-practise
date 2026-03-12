@@ -1,10 +1,3 @@
-/**
- * Adjacency Matrix representation for Directed Graphs
- * Supports both weighted and unweighted graphs
- *
- * Key difference from undirected: matrix is NOT symmetric
- * addEdge(A, B) sets matrix[A][B] only, NOT matrix[B][A]
- */
 
 interface Neighbor {
   node: string;
@@ -28,29 +21,25 @@ class DirectedAdjacencyMatrix {
       new Array(this.size).fill(0),
     );
   }
-
-  // Add a directed edge from -> to (sets only matrix[from][to])
+      
   addEdge(from: string, to: string, weight: number = 1): void {
     const i = this.nodeIndex[from];
     const j = this.nodeIndex[to];
     this.matrix[i][j] = weight;
   }
 
-  // Remove a directed edge from -> to
   removeEdge(from: string, to: string): void {
     const i = this.nodeIndex[from];
     const j = this.nodeIndex[to];
     this.matrix[i][j] = 0;
   }
 
-  // Check if a directed edge exists from -> to
   hasEdge(from: string, to: string): boolean {
     const i = this.nodeIndex[from];
     const j = this.nodeIndex[to];
     return this.matrix[i][j] !== 0;
   }
 
-  // Get all outgoing neighbors of a node
   getOutNeighbors(node: string): Neighbor[] {
     const i = this.nodeIndex[node];
     const neighbors: Neighbor[] = [];
@@ -62,7 +51,6 @@ class DirectedAdjacencyMatrix {
     return neighbors;
   }
 
-  // Get all incoming neighbors of a node
   getInNeighbors(node: string): Neighbor[] {
     const j = this.nodeIndex[node];
     const neighbors: Neighbor[] = [];
@@ -74,7 +62,6 @@ class DirectedAdjacencyMatrix {
     return neighbors;
   }
 
-  // Out-degree: number of edges going OUT from this node (non-zero in row)
   getOutDegree(node: string): number {
     const i = this.nodeIndex[node];
     let count = 0;
@@ -84,7 +71,6 @@ class DirectedAdjacencyMatrix {
     return count;
   }
 
-  // In-degree: number of edges coming IN to this node (non-zero in column)
   getInDegree(node: string): number {
     const j = this.nodeIndex[node];
     let count = 0;
@@ -94,7 +80,6 @@ class DirectedAdjacencyMatrix {
     return count;
   }
 
-  // Print the matrix in a readable format
   display(): void {
     const colWidth = Math.max(...this.nodes.map((n) => n.length), 4) + 2;
     const pad = (str: string, len: number) => str.padEnd(len);
