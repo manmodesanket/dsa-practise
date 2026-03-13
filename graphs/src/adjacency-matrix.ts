@@ -81,6 +81,31 @@ class AdjacencyMatrix {
       console.log(pad(this.nodes[i], maxLabel + 2) + row);
     }
   }
+
+  dfsTraversal() {
+    const visited = new Set<number>();
+    const provinces: Set<number>[] = [];
+    for (let i = 0; i < this.matrix.length; i++) {
+      if (!visited.has(i)) {
+        const provinceVisited = new Set<number>();
+        this.dfs(this.matrix, i, provinceVisited);
+        for (const node of provinceVisited) {
+          visited.add(node);
+        }
+        provinces.push(provinceVisited);
+      }
+    }
+    return { provinces };
+  }
+
+  dfs(matrix: number[][], row: number, visited: Set<number>): void {
+    visited.add(row);
+    for (let j = 0; j < matrix[row].length; j++) {
+      if (matrix[row][j] === 1 && !visited.has(j)) {
+        this.dfs(matrix, j, visited);
+      }
+    }
+  }
 }
 
 export { AdjacencyMatrix };
